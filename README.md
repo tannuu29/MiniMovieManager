@@ -6,7 +6,7 @@ The purpose of this task is to demonstrate understanding of backend fundamentals
 
 ## Technologies Used
 
-- Java 21
+- Java 17
 - Spring Boot
 - Spring Web
 - Spring Validation
