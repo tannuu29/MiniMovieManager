@@ -53,8 +53,16 @@ http://localhost:8080
 - Get Movie By ID
 
   API : GET /movies/{id}
-  #### example:
-  /movies/1001
+  #### example: /movies/1001
+
+- Delete Movie (Admin Only)
+  
+  API : DELETE /movies/admin/delete{id}
+  #### example: /movies/admin/delete/1002
+
+- Update Movie (Admin Only)
+  API : UPDATE movies/admin/update/{id}
+  #### example: movies/admin/update/1001
 
 ### 4. Input Validation
 
