@@ -1,0 +1,19 @@
+package com.example.MiniMovieManager.controller;
+
+import com.example.MiniMovieManager.service.DeveloperService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class DeveloperController {
+    private final DeveloperService developerService;
+
+    public DeveloperController(DeveloperService developerService){
+        this.developerService = developerService;
+    }
+
+    @GetMapping("/developer")
+    public String developedBy(){
+        return developerService.developedBy();
+    }
+}
