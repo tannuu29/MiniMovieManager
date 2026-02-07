@@ -32,7 +32,8 @@ A Movie model class is defined with the following properties:
 
 ### 3. API Endpoints
 Application runs at:
-http://localhost:8080
+http://localhost:8080  (for github)
+https://minimoviemanager.onrender.com/ (for render)
 
 - Add Movie (Admin Only)
 
@@ -63,6 +64,10 @@ http://localhost:8080
 - Update Movie (Admin Only)
   API : UPDATE movies/admin/update/{id}
   #### example: movies/admin/update/1001
+
+- Developed by
+  API : GET developer
+  #### example: https://minimoviemanager.onrender.com/developer
 
 ### 4. Input Validation
 
