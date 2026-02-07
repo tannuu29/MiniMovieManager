@@ -12,6 +12,11 @@ public class DeveloperController {
         this.developerService = developerService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "Mini Movie Manager API is running!";
+    }
+
     @GetMapping("/developer")
     public String developedBy(){
         return developerService.developedBy();
