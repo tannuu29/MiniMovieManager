@@ -9,6 +9,7 @@ public class DeveloperService {
         Developer developer = new Developer();
         developer.setName("Tanisha Nainwal");
         developer.setEmail("tanishanainwal.5@gmail.com");
-        return "Developed By : " + developer.getName() + " \nEmail id: " + developer.getEmail();
+        return "Developed By : " + developer.getName() +
+                "<br>Email id: " + developer.getEmail();
     }
 }
