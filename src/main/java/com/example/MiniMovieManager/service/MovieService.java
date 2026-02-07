@@ -65,4 +65,31 @@ public class MovieService {
         Movie movie = movieStorage.deleteById(id);
         return movie.getTitle() +" is deleted from the list.";
     }
+
+    public MovieResDto updateMovie(Long id, MovieReqDto dto) {
+
+        Movie existingMovie = movieStorage.getById(id);
+
+        if (existingMovie == null) {
+            throw new RuntimeException("Movie not found");
+        }
+
+        existingMovie.setTitle(dto.getTitle());
+        existingMovie.setGenre(dto.getGenre());
+        existingMovie.setRating(dto.getRating());
+        existingMovie.setDuration(dto.getDuration());
+        existingMovie.setReleaseDate(dto.getReleaseDate());
+
+        movieStorage.update(id, existingMovie);
+
+        MovieResDto res = new MovieResDto();
+        res.setId(existingMovie.getId());
+        res.setTitle(existingMovie.getTitle());
+        res.setGenre(existingMovie.getGenre());
+        res.setRating(existingMovie.getRating());
+        res.setDuration(existingMovie.getDuration());
+        res.setReleaseDate(existingMovie.getReleaseDate());
+
+        return res;
+    }
 }

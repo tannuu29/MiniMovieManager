@@ -28,4 +28,9 @@ public class MovieStorage {
     public Movie deleteById(Long id){
         return movieMap.remove(id);
     }
+
+    public Movie update(Long id, Movie movie) {
+        movieMap.put(id, movie);
+        return movie;
+    }
 }
