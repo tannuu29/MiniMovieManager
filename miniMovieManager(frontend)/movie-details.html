@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Details</title>
+</head>
+<body>
+
+<h2>Movie Details</h2>
+
+<p id="details">Loading...</p>
+
+<button onclick="goBack()">Back</button>
+
+<script>
+const BASE_URL = "https://minimoviemanager.onrender.com";
+
+window.onload = loadMovieDetails;
+
+async function loadMovieDetails() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  try {
+    const res = await fetch(BASE_URL + "/movies/" + id);
+    const movie = await res.json();
+
+    document.getElementById("details").innerHTML =
+      "ID: " + movie.id + "<br>" +
+      "Title: " + movie.title + "<br>" +
+      "Genre: " + movie.genre + "<br>" +
+      "Rating: " + movie.rating + "<br>" +
+      "Duration: " + movie.duration + " mins<br>" +
+      "Release Date: " + movie.releaseDate;
+  } catch (err) {
+    document.getElementById("details").innerText = "Failed to load movie.";
+  }
+}
+
+function goBack() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

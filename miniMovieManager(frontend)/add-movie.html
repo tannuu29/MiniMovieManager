@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add / Update Movie</title>
+</head>
+<body>
+
+<h2 id="pageTitle">Add Movie</h2>
+
+<input id="title" placeholder="Title"><br>
+<input id="genre" placeholder="Genre"><br>
+<input id="rating" placeholder="Rating"><br>
+<input id="duration" placeholder="Duration"><br>
+<input id="releaseDate" placeholder="YYYY-MM-DD"><br>
+
+<button onclick="submitMovie()">Submit</button>
+<button onclick="goBack()">Back</button>
+
+<script>
+const BASE_URL = "https://minimoviemanager.onrender.com";
+let movieId = null;
+
+// RUN WHEN PAGE LOADS
+window.onload = checkUpdateMode;
+
+function checkUpdateMode() {
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("data");
+
+  if (data) {
+    const movie = JSON.parse(decodeURIComponent(data));
+    movieId = movie.id;
+
+    // Change title
+    document.getElementById("pageTitle").innerText = "Update Movie";
+
+    // Fill fields
+    document.getElementById("title").value = movie.title;
+    document.getElementById("genre").value = movie.genre;
+    document.getElementById("rating").value = movie.rating;
+    document.getElementById("duration").value = movie.duration;
+    document.getElementById("releaseDate").value = movie.releaseDate;
+  }
+}
+
+async function submitMovie() {
+  const movie = {
+    title: document.getElementById("title").value,
+    genre: document.getElementById("genre").value,
+    rating: parseFloat(document.getElementById("rating").value),
+    duration: parseInt(document.getElementById("duration").value),
+    releaseDate: document.getElementById("releaseDate").value
+  };
+
+  if (movieId) {
+    // UPDATE
+    await fetch(BASE_URL + "/movies/admin/update/" + movieId, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(movie)
+    });
+    alert("Movie Updated!");
+  } else {
+    // ADD
+    await fetch(BASE_URL + "/movies/admin/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(movie)
+    });
+    alert("Movie Added!");
+  }
+
+  window.location.href = "index.html";
+}
+
+function goBack() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mini Movie Manager</title>
+    </head>
+    <body>
+
+        <h2>Mini Movie Manager</h2>
+
+        <button onclick="goToAdd()">Add Movie (Admin)</button>
+        <button onclick="loadMovies()">Load Movies</button>
+        <button onclick="goToDeveloper()">Developer Info</button>
+
+        <h3>Movies</h3>
+        <ul id="movieList"></ul>
+
+        <script>
+const BASE_URL = "https://minimoviemanager.onrender.com";
+
+// ADD MOVIE PAGE
+function goToAdd() {
+  window.location.href = "add-movie.html";
+}
+
+// DEVELOPER PAGE
+function goToDeveloper() {
+  window.location.href = "developer.html";
+}
+
+// LOAD MOVIES
+async function loadMovies() {
+  const res = await fetch(BASE_URL + "/movies");
+  const movies = await res.json();
+
+  const list = document.getElementById("movieList");
+  list.innerHTML = "";
+
+  movies.forEach(m => {
+    const li = document.createElement("li");
+    li.innerText = m.id + " - " + m.title + " (" + m.genre + ") ";
+
+    // DELETE BUTTON
+    const delBtn = document.createElement("button");
+    delBtn.innerText = "Delete";
+    delBtn.onclick = () => deleteMovie(m.id);
+
+    // UPDATE BUTTON
+    const updBtn = document.createElement("button");
+    updBtn.innerText = "Update";
+    updBtn.onclick = () => goToUpdate(m);
+
+    li.appendChild(updBtn);
+    li.appendChild(delBtn);
+    list.appendChild(li);
+
+    // VIEW BUTTON
+    const viewBtn = document.createElement("button");
+    viewBtn.innerText = "View";
+    viewBtn.onclick = () => goToDetails(m.id);
+
+    li.appendChild(viewBtn);
+
+  });
+}
+
+// UPDATE PAGE
+function goToUpdate(movie) {
+  const data = encodeURIComponent(JSON.stringify(movie));
+  window.location.href = "add-movie.html?data=" + data;
+}
+
+// DELETE MOVIE
+async function deleteMovie(id) {
+  await fetch(BASE_URL + "/movies/admin/delete/" + id, {
+    method: "DELETE"
+  });
+  loadMovies();
+}
+
+function goToDetails(id) {
+  window.location.href = "movie-details.html?id=" + id;
+}
+
+</script>
+
+    </body>
+</html>
